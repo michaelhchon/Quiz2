@@ -2,6 +2,7 @@
 //100622
 //Tic Tac Toe game between 2 players or player vs computer
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #define R 3
 #define C 3
@@ -11,14 +12,13 @@ bool markCheck(char board[R][C], int row, int col);
 //bool winCheck();
 
 int main(void) {
-    int check;
-    int choice;
+    int check, choice, mark;
     int row, col;
+    int game = 1;
     char board[R][C] = {{' ',' ',' '},
                         {' ',' ',' '},
                         {' ',' ',' '}
     };
-    int game = 1;
 
     //prompt user for game they wish to play
     printf("WELCOME TO TIC TAC TOE!\n");
@@ -26,10 +26,10 @@ int main(void) {
     printf("Enter your choice (1 or 2): ");
     //read information from console
     check = scanf("%d", &choice);
-    if(check == 0)
+    if((check == 0) || (choice != (1 || 2)))
     {
         printf("Error reading choice...\n");
-        return 0;
+        exit(0);
     }
     //display back choice and current status of board (blank)
     printf("==========================\n");
@@ -43,42 +43,57 @@ int main(void) {
         while(game)
         {
             //prompt p1 for move, receive input as row, column, then place 'X'
-            printf("Player 1: Make your move\n");
-            scanf("%d %d", &row, &col);
-            if(((row >= 1 && row <= 3) && (col >= 1 && col <= 3)))
-            {   
-                //check if there's a mark there already
-                if(markCheck(board, row, col))
-                {
-                    printf("Good!\n");
-                    //display board
-                    board[row-1][col-1] == 'X';
-                    drawBoard(board);
-                }
-                else
-                {
-                    printf("There is already a mark there. Enter new value\n");
+            mark = 1;
+            while(mark)
+            {
+                printf("Player 1: Make your move\n");
+                scanf("%d %d", &row, &col);
+                if(((row >= 1 && row <= 3) && (col >= 1 && col <= 3)))
+                {   
+                    //check if there's a mark there already
+                    if(markCheck(board, row, col))
+                    {
+                        mark = 0;
+                        printf("Good!\n");
+                        //display board
+                        board[row-1][col-1] == 'X';
+                        drawBoard(board);
+                    }
+                    else
+                    {
+                        printf("There is already a mark there. Enter new value\n");
+                    }               
                 }
             }
-/*
+            
             //prompt p2 for move receive input as row, column, then place 'O'
-            printf("Player 2: Make your move\n");
-            scanf("%d %d", &row, &col);
-            if(((row >= 1 && row <= 3) && (col >= 1 && col <= 3)))
+            mark = 1;
+            while(mark)
             {
-                printf("Good!\n");
-                //display board
-                drawBoard(board);
+                printf("Player 2: Make your move\n");
+                scanf("%d %d", &row, &col);
+                if(((row >= 1 && row <= 3) && (col >= 1 && col <= 3)))
+                {
+                    if(markCheck(board, row, col))
+                    {
+                        mark = 0;
+                        printf("Good!\n");
+                        board[row-1][col-1] == 'O';
+                        drawBoard(board);
+                    }
+                    else
+                    {
+                        printf("There is already a mark there. Enter new value\n");
+                    }   
+                }
             }
 
             //loop until EITHER 3 in a row or no more tiles to fill
-            game = winCheck();
-*/
-
+            game = 0;
+            //game = winCheck();
         }
     
         //display either p1 wins or p2 wins
-
     }
 /*
     //if 2 (pvc)
