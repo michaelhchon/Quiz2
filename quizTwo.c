@@ -56,7 +56,7 @@ int main(void) {
                         mark = 0;
                         printf("Good!\n");
                         //display board
-                        board[row-1][col-1] == 'X';
+                        board[row-1][col-1] = 'X';
                         drawBoard(board);
                     }
                     else
@@ -78,7 +78,7 @@ int main(void) {
                     {
                         mark = 0;
                         printf("Good!\n");
-                        board[row-1][col-1] == 'O';
+                        board[row-1][col-1] = 'O';
                         drawBoard(board);
                     }
                     else
@@ -129,16 +129,13 @@ void drawBoard(char board[R][C]) {
 }
 
 bool markCheck(char board[R][C], int row, int col) {
-    if(board[row][col] == ('X' || 'O'))
-    {
+    if(board[row][col] == ('X' || 'O')) {
         return 0;
     }
-    else
-    {
+    else {
         return 1;
     }
 }
-
 
 /*
 bool winCheck() {
