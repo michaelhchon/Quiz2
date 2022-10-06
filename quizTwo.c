@@ -4,10 +4,13 @@
 #include <stdio.h>
 
 void drawBoard();
+bool winCheck();
 
 int main(void) {
     int check;
     int choice;
+    int row, col;
+    bool game = true;
 
     //prompt user for game they wish to play
     printf("WELCOME TO TIC TAC TOE!\n");
@@ -26,34 +29,56 @@ int main(void) {
     drawBoard();
  
     //if 1 (pvp)
-    //start game loop until win conidtion is met
+    if(choice == 1)
+    {
+        //start game loop until win conidtion is met
+        while(game)
+        {
+            //prompt p1 for move, receive input as row, column, then place 'X'
+            printf("Player 1: Make your move\n");
+            scanf("%d %d", &row, &col);
+            if(((row >= 1 && row <= 3) && (col >= 1 && col <= 3)))
+            {
+                printf("Good!\n");
+                //display board
+                drawBoard();
+            }
 
-    //prompt p1 for move, receive input as row, column, then place 'X'
+            //prompt p2 for move receive input as row, column, then place 'O'
+            printf("Player 2: Make your move\n");
+            scanf("%d %d", &row, &col);
+            if(((row >= 1 && row <= 3) && (col >= 1 && col <= 3)))
+            {
+                printf("Good!\n");
+                //display board
+                drawBoard();
+            }
 
-    //display board
-
-    //prompt p2 for move receive input as row, column, then place 'O'
+            //loop until EITHER 3 in a row or no more tiles to fill
+            game = winCheck();
+        }
     
-    //display board
+        //display either p1 wins or p2 wins
 
-    //loop until EITHER 3 in a row or no more tiles to fill
-
-    //display either p1 wins or p2 wins
+    }
 
     //if 2 (pvc)
-    //start game loop until win conidtion is met
+    else if(choice == 2)
+    {
+        //start game loop until win conidtion is met
 
-    //prompt p1 for move, receive input as row, column, then place 'X'
+        //prompt p1 for move, receive input as row, column, then place 'X'
 
-    //display board
+        //display board
 
-    //generate random number for row and column, check if existing mark, then place 'O' if nothing
+        //generate random number for row and column, check if existing mark, then place 'O' if nothing
 
-    //display board
+        //display board
 
-    //loop until EITHER 3 in a row or no more tiles to fill
+        //loop until EITHER 3 in a row or no more tiles to fill
 
-    //display congrats or better luck next time, end program
+        //display congrats or better luck next time, end program
+    }
 
     return 0;
 }
@@ -68,4 +93,8 @@ void drawBoard() {
             printf("|   |   |   | \n");
         }
     }
+}
+
+bool winCheck() {
+
 }
