@@ -3,18 +3,17 @@
 //Tic Tac Toe game between 2 players or player vs computer
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #define R 3
 #define C 3
 
 void drawBoard(char board[R][C]);
-bool markCheck(char board[R][C], int row, int col);
-//bool winCheck();
+int markCheck(char board[R][C], int row, int col);
+char winCheck(char board[R][C]);
 
 int main(void) {
     int check, choice, mark;
     int row, col;
-    int game = 1;
+    char game = ' ';
     char board[R][C] = {{' ',' ',' '},
                         {' ',' ',' '},
                         {' ',' ',' '}
@@ -40,7 +39,7 @@ int main(void) {
     if(choice == 1)
     {
         //start game loop until win condition is met
-        while(game)
+        while(game == ' ')
         {
             //prompt p1 for move, receive input as row, column, then place 'X'
             mark = 1;
@@ -51,7 +50,7 @@ int main(void) {
                 if(((row >= 1 && row <= 3) && (col >= 1 && col <= 3)))
                 {   
                     //check if there's a mark there already
-                    if(markCheck(board, row, col))
+                    if(markCheck(board, row, col) == 1)
                     {
                         mark = 0;
                         printf("Good!\n");
@@ -65,6 +64,18 @@ int main(void) {
                     }               
                 }
             }
+
+            game = winCheck(board);
+            if(game != ' ')
+            {
+                if(game == 'X') {
+                    printf("Winner is player 1!\n");
+                }
+                else {
+                    printf("Winner is player 2!\n");
+                }
+                break;
+            }
             
             //prompt p2 for move receive input as row, column, then place 'O'
             mark = 1;
@@ -74,7 +85,7 @@ int main(void) {
                 scanf("%d %d", &row, &col);
                 if(((row >= 1 && row <= 3) && (col >= 1 && col <= 3)))
                 {
-                    if(markCheck(board, row, col))
+                    if(markCheck(board, row, col) == 1)
                     {
                         mark = 0;
                         printf("Good!\n");
@@ -88,9 +99,17 @@ int main(void) {
                 }
             }
 
-            //loop until EITHER 3 in a row or no more tiles to fill
-            game = 0;
-            //game = winCheck();
+            game = winCheck(board);
+            if(game != ' ')
+            {
+                if(game == 'X') {
+                    printf("Winner is player 1!\n");
+                }
+                else {
+                    printf("Winner is player 2!\n");
+                }
+                break;
+            }
         }
     
         //display either p1 wins or p2 wins
@@ -128,17 +147,38 @@ void drawBoard(char board[R][C]) {
     printf("+-----------+\n");
 }
 
-bool markCheck(char board[R][C], int row, int col) {
-    if(board[row][col] == ('X' || 'O')) {
-        return 0;
-    }
-    else {
+int markCheck(char board[R][C], int row, int col) {
+    if(board[row-1][col-1] == ' ')
         return 1;
-    }
+    else
+        return 0;
 }
 
-/*
-bool winCheck() {
-
+char winCheck(char board[R][C]) {
+    //top row
+    if(board[0][0] != ' ' && board[0][0] == board[0][1] && board[0][1] == board[0][2])
+        return board[0][0];
+    //middle row
+    else if(board[1][0] != ' ' && board[1][0] == board[1][1] && board[1][1] == board[1][2])
+        return board[1][0];
+    //bottom row
+    else if(board[2][0] != ' ' && board[2][0] == board[2][1] && board[2][1] == board[2][2])
+        return board[2][0];
+    //1st col
+    else if(board[0][0] != ' ' && board[0][0] == board[1][0] && board[1][0] == board[2][0])
+        return board[0][0];
+    //2nd col
+    else if(board[0][1] != ' ' && board[0][1] == board[1][1] && board[1][1] == board[2][1])
+        return board[0][1];
+    //3rd col
+    else if(board[0][2] != ' ' && board[0][2] == board[1][2] && board[1][2] == board[2][2])
+        return board[0][2];
+    //left diag
+    else if(board[0][0] != ' ' && board[0][0] == board[1][1] && board[1][1] == board[2][2])
+        return board[0][0];
+    //right diag
+    else if(board[0][2] != ' ' && board[0][2] == board[1][1] && board[1][1] == board[2][0])
+        return board[0][2];
+    else
+        return ' ';
 }
-*/
