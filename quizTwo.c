@@ -6,12 +6,13 @@
 #define R 3
 #define C 3
 
+int promptUser(int choice);
 void drawBoard(char board[R][C]);
 int markCheck(char board[R][C], int row, int col);
 char winCheck(char board[R][C]);
 
 int main(void) {
-    int check, choice, mark;
+    int choice, mark;
     int row, col;
     char game = ' ';
     char board[R][C] = {{' ',' ',' '},
@@ -20,21 +21,9 @@ int main(void) {
     };
 
     //prompt user for game they wish to play
-    printf("WELCOME TO TIC TAC TOE!\n");
-    printf("1 --- person vs person\n2 --- person vs random computer\n");
-    printf("Enter your choice (1 or 2): ");
-    //read information from console
-    check = scanf("%d", &choice);
-    if((check == 0) || (choice != (1 || 2)))
-    {
-        printf("Error reading choice...\n");
-        exit(0);
-    }
-    //display back choice and current status of board (blank)
-    printf("==========================\n");
-    printf("You have entered choice %d\n", choice);
+    choice = promptUser(choice);
     drawBoard(board);
- 
+
     //if 1 (pvp)
     if(choice == 1)
     {
@@ -68,12 +57,10 @@ int main(void) {
             game = winCheck(board);
             if(game != ' ')
             {
-                if(game == 'X') {
+                if(game == 'X') 
                     printf("Winner is player 1!\n");
-                }
-                else {
+                else
                     printf("Winner is player 2!\n");
-                }
                 break;
             }
             
@@ -102,17 +89,13 @@ int main(void) {
             game = winCheck(board);
             if(game != ' ')
             {
-                if(game == 'X') {
+                if(game == 'X')
                     printf("Winner is player 1!\n");
-                }
-                else {
+                else
                     printf("Winner is player 2!\n");
-                }
                 break;
             }
         }
-    
-        //display either p1 wins or p2 wins
     }
 /*
     //if 2 (pvc)
@@ -134,6 +117,23 @@ int main(void) {
     }
 */
     return 0;
+}
+
+int promptUser(int choice) {
+    printf("WELCOME TO TIC TAC TOE!\n");
+    printf("1 --- person vs person\n2 --- person vs random computer\n");
+    printf("Enter your choice (1 or 2): ");
+    //read information from console
+    int check = scanf("%d", &choice);
+    if((check == 0) || (choice != (1 || 2)))
+    {
+        printf("Error reading choice...\n");
+        exit(0);
+    }
+    //display back choice and current status of board (blank)
+    printf("==========================\n");
+    printf("You have entered choice %d\n", choice);
+    return choice;
 }
 
 void drawBoard(char board[R][C]) {
