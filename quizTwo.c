@@ -14,6 +14,7 @@ char winCheck(char board[R][C]);
 int main(void) {
     int choice, mark;
     int row, col;
+    int turn = 9;
     char game = ' ';
     char board[R][C] = {{' ',' ',' '},
                         {' ',' ',' '},
@@ -54,6 +55,7 @@ int main(void) {
                 }
             }
 
+            turn--;
             game = winCheck(board);
             if(game != ' ')
             {
@@ -61,6 +63,11 @@ int main(void) {
                     printf("Winner is player 1!\n");
                 else
                     printf("Winner is player 2!\n");
+                break;
+            }
+            if(turn == 0)
+            {
+                printf("Tie!\n");
                 break;
             }
             
@@ -86,6 +93,7 @@ int main(void) {
                 }
             }
 
+            turn--;
             game = winCheck(board);
             if(game != ' ')
             {
@@ -94,6 +102,11 @@ int main(void) {
                 else
                     printf("Winner is player 2!\n");
                 break;
+            }
+            if(turn == 0)
+            {
+                 printf("Tie!\n");
+                 break;
             }
         }
     }
