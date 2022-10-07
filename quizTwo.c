@@ -10,6 +10,7 @@ int promptUser(int choice);
 void drawBoard(char board[R][C]);
 int markCheck(char board[R][C], int row, int col);
 char winCheck(char board[R][C]);
+int randMove();
 
 int main(void) {
     int choice, mark;
@@ -110,23 +111,79 @@ int main(void) {
             }
         }
     }
-/*
+
     //if 2 (pvc)
     else if(choice == 2)
     {
-        //start game loop until win conidtion is met
+        while(game == ' ')
+        {
+            mark = 1;
+            while(mark)
+            {
+                printf("Player 1: Make your move\n");
+                scanf("%d %d", &row, &col);
+                if(((row >= 1 && row <= 3) && (col >= 1 && col <= 3)))
+                {   
+                    if(markCheck(board, row, col) == 1)
+                    {
+                        mark = 0;
+                        printf("Good!\n");
+                        board[row-1][col-1] = 'X';
+                        drawBoard(board);
+                    }
+                    else
+                    {
+                        printf("There is already a mark there. Enter new value\n");
+                    }               
+                }
+            }
 
-        //prompt p1 for move, receive input as row, column, then place 'X'
+            turn--;
+            game = winCheck(board);
+            if(game != ' ')
+            {
+                if(game == 'X') 
+                    printf("Winner is player 1!\n");
+                else
+                    printf("Winner is player 2!\n");
+                break;
+            }
+            if(turn == 0)
+            {
+                printf("Tie!\n");
+                break;
+            }
+            
+            mark = 1;
+            printf("Computer's move\n");
+            while(mark)
+            {
+                //generate random number for row and column, check if existing mark, then place 'O' if nothing
+                if(markCheck(board, row, col) == 1)
+                {
+                    mark = 0;
+                    printf("Good!\n");
+                    board[row-1][col-1] = 'O';
+                    drawBoard(board);
+                }
+            }
 
-        //display board
-
-        //generate random number for row and column, check if existing mark, then place 'O' if nothing
-
-        //display board
-
-        //loop until EITHER 3 in a row or no more tiles to fill
-
-        //display congrats or better luck next time, end program
+            turn--;
+            game = winCheck(board);
+            if(game != ' ')
+            {
+                if(game == 'X')
+                    printf("Winner is player 1!\n");
+                else
+                    printf("Winner is player 2!\n");
+                break;
+            }
+            if(turn == 0)
+            {
+                 printf("Tie!\n");
+                 break;
+            }
+        }
     }
 */
     return 0;
